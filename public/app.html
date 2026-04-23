@@ -633,7 +633,7 @@ const GCONFIG = {
     'https://www.googleapis.com/auth/userinfo.email',
   ].join(' '),
   DRIVE_FOLDER_NAME: 'Faircode_WBS',
-  GCAL_ID: '96402aekge1s1dmp1np6r1h4rs@group.calendar.google.com',
+  GCAL_ID: 'primary',  // 로그인한 구글 계정의 기본 캘린더
   REDIRECT_ORIGIN: location.origin,
 };
 
@@ -938,13 +938,23 @@ function saveAll(){ scheduleSave(); toast('저장 시작...'); }
 //  GOOGLE CALENDAR SYNC
 // ══════════════════════════════════════════════
 async function calAPI(method, path, body){
-  if(!gToken) throw new Error('no_token');
+  if(!gToken) throw new Error('Google 로그인이 필요합니다');
   const r = await fetch(`https://www.googleapis.com/calendar/v3/${path}`,{
     method, headers:{'Authorization':'Bearer '+gToken,'Content-Type':'application/json'},
     body: body ? JSON.stringify(body) : undefined,
   });
-  if(r.status===401){ clearAuth(); updateAuthUI(false); throw new Error('token_expired'); }
-  return r.ok ? r.json() : Promise.reject(await r.text());
+  if(r.status===401){ clearAuth(); updateAuthUI(false); throw new Error('토큰 만료 — 다시 로그인해주세요'); }
+  if(!r.ok){
+    let errMsg = `API 오류 (${r.status})`;
+    try{
+      const errJson = await r.json();
+      errMsg = errJson?.error?.message || errMsg;
+    } catch(e2){
+      try{ errMsg = await r.text() || errMsg; } catch(e3){}
+    }
+    throw new Error(errMsg);
+  }
+  return r.json();
 }
 
 async function syncDayToGCal(dateKey){
@@ -962,7 +972,7 @@ async function syncDayToGCal(dateKey){
     setSyncState('ok'); toast(`✅ ${dateKey} 메모 → 구글 캘린더 등록 완료`);
   } catch(e){
     setSyncState('err');
-    toast(e.message==='no_token'?'Google 로그인이 필요합니다':'캘린더 동기화 실패: '+e.message);
+    toast('캘린더 동기화 실패: '+(e.message||String(e)));
   }
 }
 
@@ -994,7 +1004,7 @@ async function syncAllToGCal(){
         colorId: colorMap[pn(r.pri)]||'7',
       });
       synced++; results.push({name:r.name,proj:r.proj,due:r.due,ok:true});
-    } catch(e){ results.push({name:r.name,proj:r.proj,due:r.due,ok:false,err:e.message}); }
+    } catch(e){ results.push({name:r.name,proj:r.proj,due:r.due,ok:false,err:e.message||String(e)||'알 수 없는 오류'}); }
   }
   setSyncState('ok');
   document.getElementById('gcalModalBody').innerHTML=`
