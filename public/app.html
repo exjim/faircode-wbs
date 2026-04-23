@@ -6,63 +6,8 @@
 <title>Faircode WBS 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- ════════════════════════════════════════════════════
-     🔐 Firebase Auth Guard — 로그인하지 않으면 접근 불가
-     Firebase Console에서 복사한 설정으로 교체하세요
-════════════════════════════════════════════════════ -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-  // ✅ index.html 과 동일한 Firebase 설정 입력
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  // 인증 상태 확인
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      // 로그인 안 된 경우 → 로그인 페이지로 강제 이동
-      window.location.replace('/');
-      return;
-    }
-
-    // 로그인 성공 — 앱 표시
-    document.getElementById('authGuard').style.display = 'none';
-    document.getElementById('appContent').style.display = 'flex';
-
-    // 사용자 정보 표시
-    const emailEl = document.getElementById('sb-user-email');
-    if (emailEl) {
-      emailEl.textContent = user.email;
-    }
-
-    // 세션에 사용자 정보 저장
-    sessionStorage.setItem('fc_uid', user.uid);
-    sessionStorage.setItem('fc_email', user.email);
-
-    // 로그아웃 함수 전역 등록
-    window.firebaseSignOut = async () => {
-      if (!confirm('로그아웃 하시겠습니까?')) return;
-      try {
-        sessionStorage.clear();
-        await signOut(auth);
-        window.location.replace('/');
-      } catch(e) {
-        console.error('로그아웃 오류:', e);
-        window.location.replace('/');
-      }
-    };
-  });
-</script>
+<!-- 🔐 Firebase Auth Guard — npm 빌드 번들 -->
+<script type="module" src="/js/auth-guard.js"></script>
 
 <style>
 /* ── Auth Guard 로딩 화면 ── */
