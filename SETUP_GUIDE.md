@@ -63,16 +63,20 @@ const firebaseConfig = {
 };
 ```
 
-⚠️ **두 파일 모두 교체해야 합니다!**
-- `public/index.html` (로그인 페이지)
-- `public/app.html` (WBS 앱)
+⚠️ **`src/firebase.js` 파일 하나만 교체하면 됩니다!** (npm 패키지 방식)
+- `src/firebase.js` → firebaseConfig 교체 후 `npm run build`
 
-### Step 5: Firebase Hosting 배포
+### Step 5: npm 빌드 후 Firebase Hosting 배포
 ```bash
-# Node.js가 없다면 먼저 설치
-# https://nodejs.org 에서 LTS 버전 다운로드
+# 의존성 설치 (처음 1회)
+npm install
 
-# Firebase CLI 설치
+# 🔑 src/firebase.js 에서 YOUR_API_KEY 등 교체 후:
+
+# Firebase SDK 번들 빌드 (public/js/ 생성)
+npm run build
+
+# Firebase CLI 설치 (처음 1회)
 npm install -g firebase-tools
 
 # Firebase 로그인
