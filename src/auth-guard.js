@@ -5,7 +5,15 @@
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase.js';
 
+// 5초 안에 인증 응답 없으면 로그인 페이지로 이동 (무한 대기 방지)
+const authTimeout = setTimeout(() => {
+  console.warn('Firebase 인증 응답 없음 → 로그인 페이지로 이동');
+  window.location.replace('/');
+}, 5000);
+
 onAuthStateChanged(auth, (user) => {
+  clearTimeout(authTimeout); // 타임아웃 해제
+
   if (!user) {
     // 미인증 → 로그인 페이지로 강제 이동
     window.location.replace('/');
