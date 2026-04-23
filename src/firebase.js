@@ -6,12 +6,13 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+  apiKey:            "AIzaSyDC3XwSjrS82aRzm5_p7EtyjucWi2czvpQ",
+  authDomain:        "faircodewbs.firebaseapp.com",
+  projectId:         "faircodewbs",
+  storageBucket:     "faircodewbs.firebasestorage.app",
+  messagingSenderId: "756573380744",
+  appId:             "1:756573380744:web:86ad3388bff421d5ffff3d",
+  measurementId:     "G-K9E12KC8EH"
 };
 
 const app  = initializeApp(firebaseConfig);
