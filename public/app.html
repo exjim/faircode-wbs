@@ -43,8 +43,8 @@
   font-size: 13px;
   color: #9ca3af;
 }
-/* 앱 컨텐츠 — 인증 전까지 숨김 */
-#appContent { display: none; flex-direction: column; height: 100vh; flex: 1; }
+/* 앱 컨텐츠 — 바로 표시 */
+#appContent { display: flex; flex-direction: column; height: 100vh; flex: 1; }
 </style>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -366,18 +366,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 </head>
 <body>
 
-<!-- ════ 🔐 Auth Guard — Firebase 인증 전까지 표시 ════ -->
-<div id="authGuard">
-  <div class="ag-logo">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
-  <div class="ag-spinner"></div>
-  <p class="ag-text">인증 확인 중...</p>
-</div>
-
-<!-- ════ 앱 본문 — 인증 후 표시 ════ -->
+<!-- ════ 앱 본문 ════ -->
 <div id="appContent">
 
 <!-- TOP NAV -->
