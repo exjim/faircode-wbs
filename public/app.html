@@ -190,7 +190,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .ptag{display:inline-flex;align-items:center;gap:4px;padding:1px 7px;border-radius:4px;font-size:11px;white-space:nowrap;cursor:pointer}
 .pt01{background:#dbeafe;color:#1e40af}.pt02{background:#ede9fe;color:#5b21b6}
 .pt03{background:#d1fae5;color:#065f46}.pt04{background:#fef3c7;color:#92400e}
-.pt05{background:#fee2e2;color:#991b1b}.ptall{background:#f1f1ef;color:#787774}
+.pt05{background:#fee2e2;color:#991b1b}.pt06{background:#fce7f3;color:#9d174d}.ptall{background:#f1f1ef;color:#787774}
 .prog-cell{display:flex;align-items:center;gap:4px}
 .prog-bar{flex:1;height:3px;background:#f1f1ef;border-radius:99px;min-width:36px;overflow:hidden}
 .prog-fill{height:100%;border-radius:99px;background:var(--acc)}
@@ -437,11 +437,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
   <div class="sb-div"></div>
   <div class="sb-lbl">프로젝트</div>
   <div class="sb-item on" onclick="fProj('all',this)"><div class="sb-dot" style="background:#9ca3af"></div>전체<span class="sb-cnt" id="cnt-all">0</span></div>
-  <div class="sb-item" onclick="fProj('PJ-01',this)"><div class="sb-dot" style="background:#3b82f6"></div>Cu Scrap<span class="sb-cnt" id="cnt-01">0</span></div>
-  <div class="sb-item" onclick="fProj('PJ-02',this)"><div class="sb-dot" style="background:#8b5cf6"></div>의료기기<span class="sb-cnt" id="cnt-02">0</span></div>
-  <div class="sb-item" onclick="fProj('PJ-03',this)"><div class="sb-dot" style="background:#10b981"></div>택시미터<span class="sb-cnt" id="cnt-03">0</span></div>
-  <div class="sb-item" onclick="fProj('PJ-04',this)"><div class="sb-dot" style="background:#f59e0b"></div>부품플랫폼<span class="sb-cnt" id="cnt-04">0</span></div>
-  <div class="sb-item" onclick="fProj('PJ-05',this)"><div class="sb-dot" style="background:#ef4444"></div>보청기<span class="sb-cnt" id="cnt-05">0</span></div>
+  <div class="sb-item" onclick="fProj('PJ-01',this)"><div class="sb-dot" style="background:#3b82f6"></div>⚗️ 케미컬<span class="sb-cnt" id="cnt-01">0</span></div>
+  <div class="sb-item" onclick="fProj('PJ-02',this)"><div class="sb-dot" style="background:#8b5cf6"></div>📡 네트워크Biz<span class="sb-cnt" id="cnt-02">0</span></div>
+  <div class="sb-item" onclick="fProj('PJ-03',this)"><div class="sb-dot" style="background:#10b981"></div>🏗️ 이란재건<span class="sb-cnt" id="cnt-03">0</span></div>
+  <div class="sb-item" onclick="fProj('PJ-04',this)"><div class="sb-dot" style="background:#f59e0b"></div>🚗 자동차수출<span class="sb-cnt" id="cnt-04">0</span></div>
+  <div class="sb-item" onclick="fProj('PJ-05',this)"><div class="sb-dot" style="background:#ef4444"></div>💻 플랫폼개발<span class="sb-cnt" id="cnt-05">0</span></div>
+  <div class="sb-item" onclick="fProj('PJ-06',this)"><div class="sb-dot" style="background:#ec4899"></div>🦽 뉴딕/HayCare<span class="sb-cnt" id="cnt-06">0</span></div>
   <div class="sb-div"></div>
   <div class="sb-lbl">상태</div>
   <div class="sb-item" onclick="fStatus('진행 중')">🔵 진행 중</div>
@@ -541,7 +542,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
       <input class="mfi" id="tn-name" placeholder="작업명 입력...">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <div><label class="mfl">상태</label><select class="mfs" id="tn-status"><option>준비 중</option><option>진행 중</option><option>검토</option><option>완료</option><option>보류</option></select></div>
-        <div><label class="mfl">프로젝트</label><select class="mfs" id="tn-proj"><option value="PJ-01">PJ-01 Cu Scrap</option><option value="PJ-02">PJ-02 의료기기</option><option value="PJ-03">PJ-03 택시미터</option><option value="PJ-04">PJ-04 부품플랫폼</option><option value="PJ-05">PJ-05 보청기</option><option value="공통">공통</option></select></div>
+        <div><label class="mfl">프로젝트</label><select class="mfs" id="tn-proj"><option value="PJ-01">PJ-01 케미컬</option><option value="PJ-02">PJ-02 네트워크Biz</option><option value="PJ-03">PJ-03 이란재건</option><option value="PJ-04">PJ-04 자동차수출</option><option value="PJ-05">PJ-05 플랫폼개발</option><option value="PJ-06">PJ-06 뉴딕/HayCare</option><option value="공통">공통</option></select></div>
       </div>
       <label class="mfl">⚑ 우선순위 (1=최고)</label>
       <div class="pri-grid" id="tn-pri-grid"></div>
@@ -1031,31 +1032,82 @@ async function syncAllToGCal(){
 //  CONSTANTS + DATA
 // ══════════════════════════════════════════════
 const STATUSES=[{k:'준비 중',c:'s0',i:'⚪'},{k:'진행 중',c:'s1',i:'🔵'},{k:'검토',c:'s2',i:'🟡'},{k:'완료',c:'s3',i:'🟢'},{k:'보류',c:'s4',i:'🔴'}];
-const PROJS=[{k:'PJ-01',l:'Cu Scrap',c:'pt01',d:'#3b82f6',em:'🔩'},{k:'PJ-02',l:'의료기기',c:'pt02',d:'#8b5cf6',em:'🏥'},{k:'PJ-03',l:'택시미터',c:'pt03',d:'#10b981',em:'🚕'},{k:'PJ-04',l:'부품플랫폼',c:'pt04',d:'#f59e0b',em:'🔧'},{k:'PJ-05',l:'보청기',c:'pt05',d:'#ef4444',em:'👂'},{k:'공통',l:'공통',c:'ptall',d:'#9ca3af',em:'📋'}];
+const PROJS=[
+  {k:'PJ-01',l:'케미컬',c:'pt01',d:'#3b82f6',em:'⚗️'},
+  {k:'PJ-02',l:'네트워크Biz',c:'pt02',d:'#8b5cf6',em:'📡'},
+  {k:'PJ-03',l:'이란재건',c:'pt03',d:'#10b981',em:'🏗️'},
+  {k:'PJ-04',l:'자동차수출',c:'pt04',d:'#f59e0b',em:'🚗'},
+  {k:'PJ-05',l:'플랫폼개발',c:'pt05',d:'#ef4444',em:'💻'},
+  {k:'PJ-06',l:'뉴딕/HayCare',c:'pt06',d:'#ec4899',em:'🦽'},
+  {k:'공통',l:'공통',c:'ptall',d:'#9ca3af',em:'📋'}
+];
 const PS={1:{bg:'#fef2f2',cl:'#dc2626',bd:'#fca5a5'},2:{bg:'#fff7ed',cl:'#c2410c',bd:'#fdba74'},3:{bg:'#fefce8',cl:'#a16207',bd:'#fde047'},4:{bg:'#f0fdf4',cl:'#15803d',bd:'#86efac'},5:{bg:'#eff6ff',cl:'#1d4ed8',bd:'#93c5fd'},6:{bg:'#f5f3ff',cl:'#6d28d9',bd:'#c4b5fd'},7:{bg:'#fdf4ff',cl:'#86198f',bd:'#e879f9'},8:{bg:'#f8fafc',cl:'#475569',bd:'#cbd5e1'},9:{bg:'#f1f5f9',cl:'#64748b',bd:'#e2e8f0'}};
 const PALETTE=['#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444','#ec4899','#06b6d4','#84cc16','#f97316','#6366f1','#14b8a6','#a855f7','#64748b','#1a1a1a'];
-const PROJ_SUM={'PJ-01':'독일/스페인 Cu Scrap 공급처.','PJ-02':'MK2/C/T 의료기기 영업.','PJ-03':'택시 미터기 기술 도입.','PJ-04':'부품 플랫폼 개발.','PJ-05':'보청기 H/W·S/W 개발.'};
+const PROJ_SUM={
+  'PJ-01':'TG64($1,100~1,140/t FOB) · PE80($1,450/t FOB) 협상 진행 중.',
+  'PJ-02':'Passive Parts · Optical Cable · ONT/OLT · P5G 이라크 MOU 준비.',
+  'PJ-03':'철도·케미컬·도로·인프라 재건 프로그램. 가능 품목 발굴 중.',
+  'PJ-04':'K5·Benz E300·Sportage·Tucson·Veracruz 제안서 작성.',
+  'PJ-05':'디자인/개발 사이트 + 부품소싱·약품 delivery 앱웹 구축.',
+  'PJ-06':'디딤돌 제품개발·임상 + 보행보조기 샘플·홍익대 디자인 협업.'
+};
 const DOW=['일','월','화','수','목','금','토'];
 
-let phases=[{id:'Phase 1',name:'Phase 1 — 소싱 및 영업',color:'#3b82f6',desc:''},{id:'Phase 2',name:'Phase 2 — 기술 검토',color:'#8b5cf6',desc:''},{id:'Phase 3',name:'Phase 3 — 플랫폼 개발',color:'#10b981',desc:''},{id:'Phase 4',name:'Phase 4 — R&D',color:'#f59e0b',desc:''},{id:'Phase 5',name:'Phase 5 — 공통 점검',color:'#ef4444',desc:''}];
-let rows=[
-  {id:1,ph:'Phase 1',type:'task',name:'독일/스페인 Cu Scrap 공급처 리스트업',status:'진행 중',pri:1,proj:'PJ-01',pct:50,due:'2026-04-20',owner:'JIM',notes:'John & Guo 요청.',summary:'Cu 스크랩 공급 네트워크.',files:[]},
-  {id:2,ph:'Phase 1',type:'sub',name:'공급처 견적 요청',status:'준비 중',pri:1,proj:'PJ-01',pct:20,due:'2026-04-25',owner:'JIM',notes:'',summary:'',files:[]},
-  {id:3,ph:'Phase 1',type:'task',name:'MK2/CT 의료기기 영업 제안서',status:'준비 중',pri:3,proj:'PJ-02',pct:30,due:'2026-05-01',owner:'JIM',notes:'새병원 타겟.',summary:'',files:[]},
-  {id:4,ph:'Phase 2',type:'task',name:'택시 미터기 중국 업체 기술 미팅',status:'진행 중',pri:1,proj:'PJ-03',pct:60,due:'2026-04-30',owner:'JIM',notes:'기술 이전 판단',summary:'KS Lab 연계.',files:[]},
-  {id:5,ph:'Phase 2',type:'sub',name:'개발 기간 및 비용 조건 확인',status:'진행 중',pri:1,proj:'PJ-03',pct:50,due:'2026-04-25',owner:'JIM',notes:'',summary:'',files:[]},
-  {id:6,ph:'Phase 2',type:'task',name:'국내 인증 프로세스 검토 (KCL)',status:'준비 중',pri:3,proj:'PJ-03',pct:15,due:'2026-05-20',owner:'JIM',notes:'',summary:'',files:[]},
-  {id:7,ph:'Phase 3',type:'task',name:'부품 플랫폼 서비스 아키텍처 설계',status:'준비 중',pri:3,proj:'PJ-04',pct:25,due:'2026-05-30',owner:'JIM',notes:'부품DB + 수리점',summary:'Next.js + Supabase.',files:[]},
-  {id:8,ph:'Phase 3',type:'sub',name:'SRS 작성',status:'준비 중',pri:3,proj:'PJ-04',pct:20,due:'2026-05-20',owner:'JIM',notes:'',summary:'',files:[]},
-  {id:9,ph:'Phase 4',type:'task',name:'보청기 하드웨어 사양 확정',status:'진행 중',pri:3,proj:'PJ-05',pct:55,due:'2026-05-15',owner:'JIM',notes:'Ezairo 8300',summary:'HearWatch 연계.',files:[]},
-  {id:10,ph:'Phase 4',type:'sub',name:'회로 설계 및 PCB 레이아웃',status:'진행 중',pri:3,proj:'PJ-05',pct:40,due:'2026-05-30',owner:'JIM',notes:'',summary:'',files:[]},
-  {id:11,ph:'Phase 4',type:'task',name:'운용 소프트웨어 개발',status:'진행 중',pri:3,proj:'PJ-05',pct:50,due:'2026-06-30',owner:'JIM',notes:'HearWatch 앱 연동',summary:'',files:[]},
-  {id:12,ph:'Phase 4',type:'sub',name:'정부 과제 신청서 보완',status:'준비 중',pri:2,proj:'PJ-05',pct:60,due:'2026-04-30',owner:'JIM',notes:'신청서식 1·2호',summary:'',files:[]},
-  {id:13,ph:'Phase 5',type:'task',name:'전 프로젝트 예산 정산',status:'준비 중',pri:1,proj:'공통',pct:15,due:'2026-04-30',owner:'JIM',notes:'',summary:'',files:[]},
-  {id:14,ph:'Phase 5',type:'task',name:'법인 등기 점검',status:'완료',pri:8,proj:'공통',pct:100,due:'2026-04-10',owner:'JIM',notes:'분당 이전 완료',summary:'',files:[]},
-  {id:15,ph:'Phase 5',type:'task',name:'Faircode PPT 사업계획서 업데이트',status:'진행 중',pri:3,proj:'공통',pct:70,due:'2026-05-01',owner:'JIM',notes:'',summary:'',files:[]},
+let phases=[
+  {id:'Phase 1',name:'Phase 1 — 케미컬 Trading',color:'#3b82f6',desc:'TG64 / PE80 협상 및 계약'},
+  {id:'Phase 2',name:'Phase 2 — 네트워크 / P5G',color:'#8b5cf6',desc:'이라크 P5G MOU · 부품 소싱 · 이란 연계'},
+  {id:'Phase 3',name:'Phase 3 — 이란 재건 프로그램',color:'#10b981',desc:'철도·인프라·케미컬·구호물품 수출'},
+  {id:'Phase 4',name:'Phase 4 — 자동차 수출',color:'#f59e0b',desc:'K5·Benz·Sportage·Tucson·Veracruz 제안서'},
+  {id:'Phase 5',name:'Phase 5 — 플랫폼 개발',color:'#ef4444',desc:'사이트/앱웹 · 부품소싱 · 약품 Delivery'},
+  {id:'Phase 6',name:'Phase 6 — 뉴딕 / HayCare',color:'#ec4899',desc:'디딤돌 보행보조기 · 홍익대 협업 · 사회적기업'}
 ];
-let nid=16;
+let rows=[
+  /* ── PJ-01 케미컬 ── */
+  {id:1,ph:'Phase 1',type:'task',name:'TG64 가격 협상 (목표 $1,100~1,140/ton FOB)',status:'진행 중',pri:1,proj:'PJ-01',pct:40,due:'2026-06-15',owner:'JIM',notes:'China or Korea FOB 기준.',summary:'TG64 협상 진행 중.',files:[]},
+  {id:2,ph:'Phase 1',type:'sub',name:'TG64 공급처 견적 수집 및 비교',status:'진행 중',pri:1,proj:'PJ-01',pct:30,due:'2026-06-10',owner:'JIM',notes:'',summary:'',files:[]},
+  {id:3,ph:'Phase 1',type:'task',name:'PE80 가격 협상 (목표 $1,450/ton FOB)',status:'진행 중',pri:1,proj:'PJ-01',pct:35,due:'2026-06-20',owner:'JIM',notes:'China FOB 기준. KPIC P301E 포함 검토.',summary:'PE80 협상 진행 중.',files:[]},
+  {id:4,ph:'Phase 1',type:'sub',name:'PE80 공급처 리스트업 (KPIC 포함)',status:'진행 중',pri:2,proj:'PJ-01',pct:50,due:'2026-06-10',owner:'JIM',notes:'대한유화 P301E grade 우선 검토.',summary:'',files:[]},
+  {id:5,ph:'Phase 1',type:'sub',name:'계약 조건 검토 및 LOI 작성',status:'준비 중',pri:2,proj:'PJ-01',pct:10,due:'2026-06-30',owner:'JIM',notes:'',summary:'',files:[]},
+
+  /* ── PJ-02 네트워크Biz ── */
+  {id:6,ph:'Phase 2',type:'task',name:'Passive Parts 납기 확인 및 소싱',status:'진행 중',pri:1,proj:'PJ-02',pct:40,due:'2026-06-20',owner:'JIM',notes:'Ali와 협업 예정.',summary:'Passive part delivery 확인 중.',files:[]},
+  {id:7,ph:'Phase 2',type:'task',name:'Optical Cable 소싱 준비',status:'진행 중',pri:2,proj:'PJ-02',pct:30,due:'2026-06-25',owner:'JIM',notes:'광케이블 공급망 구축.',summary:'준비 중.',files:[]},
+  {id:8,ph:'Phase 2',type:'task',name:'ONT/OLT 샘플 요청 준비',status:'준비 중',pri:2,proj:'PJ-02',pct:20,due:'2026-07-05',owner:'JIM',notes:'샘플 요청서 작성 예정.',summary:'',files:[]},
+  {id:9,ph:'Phase 2',type:'task',name:'P5G 이라크 제안서 작성',status:'진행 중',pri:1,proj:'PJ-02',pct:30,due:'2026-06-30',owner:'JIM',notes:'Operator MOU 협의 병행.',summary:'P5G Iraq 제안서 준비.',files:[]},
+  {id:10,ph:'Phase 2',type:'sub',name:'이라크 MOU 초안 작성',status:'준비 중',pri:1,proj:'PJ-02',pct:20,due:'2026-07-01',owner:'JIM',notes:'MOU 완료 후 이란 연계 진행.',summary:'',files:[]},
+  {id:11,ph:'Phase 2',type:'sub',name:'Ali 네트워크 협업 구조 정리',status:'진행 중',pri:2,proj:'PJ-02',pct:25,due:'2026-06-20',owner:'JIM',notes:'내용 정리 중.',summary:'',files:[]},
+
+  /* ── PJ-03 이란재건 ── */
+  {id:12,ph:'Phase 3',type:'task',name:'이란 재건 프로그램 — 가능 품목 발굴',status:'준비 중',pri:2,proj:'PJ-03',pct:15,due:'2026-07-15',owner:'JIM',notes:'철도·케미컬·도로·인프라 등.',summary:'이란 재건 참여 가능 분야 조사.',files:[]},
+  {id:13,ph:'Phase 3',type:'sub',name:'철도 인프라 관련 공급 가능 품목 조사',status:'준비 중',pri:2,proj:'PJ-03',pct:10,due:'2026-07-10',owner:'JIM',notes:'',summary:'',files:[]},
+  {id:14,ph:'Phase 3',type:'sub',name:'케미컬·도로 자재 공급 루트 검토',status:'준비 중',pri:3,proj:'PJ-03',pct:10,due:'2026-07-10',owner:'JIM',notes:'',summary:'',files:[]},
+  {id:15,ph:'Phase 3',type:'task',name:'긴급 구호물품·약품 이란 수출 협의',status:'🟡 검토',status:'검토',pri:2,proj:'PJ-03',pct:10,due:'2026-07-20',owner:'JIM',notes:'Care for You 또는 Faircode 경유.',summary:'재건 후 구호물품 수출 채널 구축.',files:[]},
+  {id:16,ph:'Phase 3',type:'sub',name:'P5G 이라크 MOU 완료 후 이란 연계 확인',status:'준비 중',pri:2,proj:'PJ-03',pct:5,due:'2026-08-01',owner:'JIM',notes:'이라크 MOU 선행 필요.',summary:'',files:[]},
+
+  /* ── PJ-04 자동차수출 ── */
+  {id:17,ph:'Phase 4',type:'task',name:'수출 차량 목록 확정 및 소싱',status:'준비 중',pri:3,proj:'PJ-04',pct:15,due:'2026-06-30',owner:'JIM',notes:'K5·Benz E300·Sportage·Tucson·Veracruz.',summary:'인터넷 소싱 기반 제안서 작성.',files:[]},
+  {id:18,ph:'Phase 4',type:'sub',name:'K5 / Sportage / Tucson 재고 조사',status:'준비 중',pri:3,proj:'PJ-04',pct:15,due:'2026-06-25',owner:'JIM',notes:'온라인 매물 확인.',summary:'',files:[]},
+  {id:19,ph:'Phase 4',type:'sub',name:'Benz E300 / Veracruz 견적 취합',status:'준비 중',pri:3,proj:'PJ-04',pct:10,due:'2026-06-25',owner:'JIM',notes:'',summary:'',files:[]},
+  {id:20,ph:'Phase 4',type:'task',name:'자동차 수출 제안서 작성',status:'준비 중',pri:3,proj:'PJ-04',pct:5,due:'2026-07-10',owner:'JIM',notes:'바이어 타겟 미정.',summary:'',files:[]},
+
+  /* ── PJ-05 플랫폼개발 ── */
+  {id:21,ph:'Phase 5',type:'task',name:'디자인·개발 업무 사이트 기획',status:'검토',pri:3,proj:'PJ-05',pct:10,due:'2026-07-15',owner:'JIM',notes:'',summary:'디자인/개발 외주 연결 플랫폼.',files:[]},
+  {id:22,ph:'Phase 5',type:'task',name:'부품 소싱 및 약품 Delivery 앱웹 기획',status:'검토',pri:3,proj:'PJ-05',pct:10,due:'2026-07-20',owner:'JIM',notes:'이란 재건 연계 가능.',summary:'특성 약품 배송 포함.',files:[]},
+  {id:23,ph:'Phase 5',type:'sub',name:'서비스 요구사항 정의 (SRS)',status:'준비 중',pri:4,proj:'PJ-05',pct:0,due:'2026-07-30',owner:'JIM',notes:'',summary:'',files:[]},
+  {id:24,ph:'Phase 5',type:'sub',name:'기술 스택 선정 및 아키텍처 설계',status:'준비 중',pri:4,proj:'PJ-05',pct:0,due:'2026-08-10',owner:'JIM',notes:'',summary:'',files:[]},
+
+  /* ── PJ-06 뉴딕/HayCare ── */
+  {id:25,ph:'Phase 6',type:'task',name:'디딤돌 제품 개발 계획 수립',status:'진행 중',pri:2,proj:'PJ-06',pct:30,due:'2026-06-30',owner:'JIM',notes:'임상 계획 포함.',summary:'뉴딕 보행보조기 제품개발.',files:[]},
+  {id:26,ph:'Phase 6',type:'sub',name:'임상 시험 계획서 (CTP) 초안 작성',status:'준비 중',pri:2,proj:'PJ-06',pct:15,due:'2026-07-10',owner:'JIM',notes:'',summary:'',files:[]},
+  {id:27,ph:'Phase 6',type:'task',name:'사회적기업 보행보조기 샘플 제작',status:'진행 중',pri:2,proj:'PJ-06',pct:25,due:'2026-07-15',owner:'JIM',notes:'사회적기업 창업지원사업 연계.',summary:'HayWalk 샘플 제작.',files:[]},
+  {id:28,ph:'Phase 6',type:'sub',name:'홍익대 디자인학과 협업 협의',status:'진행 중',pri:2,proj:'PJ-06',pct:20,due:'2026-06-25',owner:'JIM',notes:'디자인→생산 연계 목표.',summary:'',files:[]},
+  {id:29,ph:'Phase 6',type:'sub',name:'구성원 협의 및 역할 분담 기획',status:'준비 중',pri:3,proj:'PJ-06',pct:10,due:'2026-06-30',owner:'JIM',notes:'',summary:'',files:[]},
+
+  /* ── 공통 ── */
+  {id:30,ph:'Phase 1',type:'task',name:'Faircode 사업계획서 업데이트 (2026 H2)',status:'진행 중',pri:3,proj:'공통',pct:50,due:'2026-06-15',owner:'JIM',notes:'7개 프로젝트 반영.',summary:'',files:[]},
+  {id:31,ph:'Phase 1',type:'task',name:'법인 등기 및 사업자등록 점검',status:'완료',pri:8,proj:'공통',pct:100,due:'2026-05-01',owner:'JIM',notes:'분당 이전 완료.',summary:'',files:[]},
+];
+let nid=32;
 let cFilter={proj:'all',status:'',phase:''};
 let collapsed=new Set();
 let curId=null, curFiles=[];
@@ -1154,7 +1206,7 @@ function renderTable(){
   const tbody=document.getElementById('wbsBody'), filtered=getFiltered(), grouped={};
   phases.forEach(ph=>{grouped[ph.id]=[];}); filtered.forEach(r=>{if(!grouped[r.ph]) grouped[r.ph]=[];grouped[r.ph].push(r);});
   document.getElementById('cnt-all').textContent=rows.filter(r=>r.type!=='phase').length;
-  ['01','02','03','04','05'].forEach(n=>{const el=document.getElementById('cnt-'+n);if(el) el.textContent=rows.filter(r=>r.type!=='phase'&&r.proj===`PJ-${n}`).length;});
+  ['01','02','03','04','05','06'].forEach(n=>{const el=document.getElementById('cnt-'+n);if(el) el.textContent=rows.filter(r=>r.type!=='phase'&&r.proj===`PJ-${n}`).length;});
   renderSbPhases();
   let html='';
   phases.forEach(ph=>{
