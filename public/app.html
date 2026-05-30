@@ -62,48 +62,65 @@
 .prog-cell{cursor:pointer;transition:opacity .15s}
 .prog-cell:hover{opacity:.75}
 
-/* ══ 아이템 잠금/비밀번호 시스템 ══ */
-.lock-icon{font-size:13px;cursor:pointer;margin-left:4px;opacity:.55;transition:.15s;flex-shrink:0}
-.lock-icon:hover{opacity:1;transform:scale(1.15)}
-.locked-row td{opacity:.45;pointer-events:none}
-.locked-row td:first-child{opacity:1;pointer-events:all}
-.locked-row .lock-icon{opacity:1}
+
+.admin-trigger:hover{opacity:1;color:var(--acc)}
+
+
+/* ═══════════ 🔐 잠금 시스템 CSS ═══════════ */
+.lock-btn{background:none;border:none;cursor:pointer;font-size:14px;padding:0 2px;opacity:.3;transition:.15s;flex-shrink:0;line-height:1}
+.lock-btn:hover{opacity:1;transform:scale(1.2)}
+.lock-btn.locked{opacity:1}
+
+/* 잠긴 행 — 축소 표시 */
+.row-locked-mask{display:flex;align-items:center;gap:8px;padding:6px 8px;cursor:pointer;border-radius:6px;background:rgba(0,0,0,.03);border:1px dashed var(--border);margin:2px 0}
+.row-locked-mask:hover{background:rgba(59,130,246,.06);border-color:var(--acc)}
+.row-locked-num{font-size:11px;font-weight:800;color:var(--t3);min-width:28px}
+.row-locked-label{font-size:12px;color:var(--t3);font-style:italic}
+.row-locked-key{font-size:13px}
 
 /* 비밀번호 모달 */
-.pw-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;display:none;align-items:center;justify-content:center}
-.pw-modal-bg.show{display:flex}
-.pw-modal{background:#fff;border-radius:14px;padding:28px 26px 22px;width:340px;box-shadow:0 8px 32px rgba(0,0,0,.18);position:relative}
-.pw-modal h3{margin:0 0 6px;font-size:16px;font-weight:800}
-.pw-modal .pw-sub{font-size:12px;color:var(--t3);margin-bottom:18px}
-.pw-input-wrap{position:relative;margin-bottom:12px}
-.pw-input{width:100%;padding:10px 38px 10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:var(--font);outline:none;box-sizing:border-box;letter-spacing:2px}
-.pw-input:focus{border-color:var(--acc)}
-.pw-eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:16px;color:var(--t3)}
-.pw-error{color:#dc2626;font-size:12px;margin-bottom:10px;display:none;min-height:16px}
-.pw-error.show{display:block}
-.pw-btn-row{display:flex;gap:8px;margin-top:4px}
-.pw-btn{flex:1;padding:9px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)}
-.pw-btn.primary{background:var(--acc);color:#fff}
-.pw-btn.secondary{background:#f1f1ef;color:var(--text)}
-.pw-modal-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--t3)}
-.pw-hint{font-size:11px;color:var(--t3);margin-top:10px;text-align:center;line-height:1.5}
-.pw-forgot{color:var(--acc);cursor:pointer;text-decoration:underline}
+.lk-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:none;align-items:center;justify-content:center}
+.lk-bg.show{display:flex}
+.lk-box{background:#fff;border-radius:14px;padding:26px 24px 20px;width:320px;box-shadow:0 8px 32px rgba(0,0,0,.18);position:relative}
+.lk-box h3{margin:0 0 4px;font-size:16px;font-weight:800}
+.lk-box .lk-sub{font-size:12px;color:var(--t3);margin-bottom:16px;line-height:1.5}
+.lk-inp-wrap{position:relative;margin-bottom:10px}
+.lk-inp{width:100%;padding:10px 36px 10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:16px;font-family:var(--font);outline:none;box-sizing:border-box;letter-spacing:3px}
+.lk-inp:focus{border-color:var(--acc)}
+.lk-eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:15px;color:var(--t3);background:none;border:none}
+.lk-err{color:#dc2626;font-size:12px;min-height:18px;margin-bottom:8px}
+.lk-btns{display:flex;gap:8px}
+.lk-btn{flex:1;padding:9px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.lk-btn.ok{background:var(--acc);color:#fff}
+.lk-btn.cancel{background:#f1f1ef;color:var(--text)}
+.lk-btn.danger{background:#fee2e2;color:#dc2626}
+.lk-hint{font-size:11px;color:var(--t3);text-align:center;margin-top:10px;line-height:1.6}
+.lk-hint a{color:var(--acc);cursor:pointer;text-decoration:underline}
 
-/* 어드민 패널 */
-.admin-panel-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10010;display:none;align-items:center;justify-content:center}
-.admin-panel-bg.show{display:flex}
-.admin-panel{background:#fff;border-radius:14px;padding:24px;width:420px;max-height:80vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.2)}
-.admin-panel h3{margin:0 0 4px;font-size:16px;font-weight:800}
-.admin-panel .ap-sub{font-size:12px;color:var(--t3);margin-bottom:16px}
-.ap-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)}
-.ap-item:last-child{border-bottom:none}
-.ap-name{flex:1;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ap-badge{font-size:10px;padding:2px 7px;border-radius:99px;background:#fee2e2;color:#dc2626;font-weight:700}
-.ap-badge.unlocked{background:#d1fae5;color:#065f46}
-.ap-reset-btn{padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:#f8f8f8;font-size:11px;cursor:pointer;white-space:nowrap}
-.ap-reset-btn:hover{background:var(--acc);color:#fff;border-color:var(--acc)}
-.admin-trigger{cursor:pointer;font-size:11px;color:var(--t3);margin-left:8px;opacity:.6}
-.admin-trigger:hover{opacity:1;color:var(--acc)}
+/* Admin 패널 */
+.adm-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:none;align-items:center;justify-content:center}
+.adm-bg.show{display:flex}
+.adm-box{background:#fff;border-radius:14px;padding:22px;width:440px;max-height:82vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.2);position:relative}
+.adm-box h3{margin:0 0 2px;font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px}
+.adm-sub{font-size:11px;color:var(--t3);margin-bottom:14px}
+.adm-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
+.adm-row:last-child{border:none}
+.adm-name{flex:1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adm-status{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;white-space:nowrap}
+.adm-status.locked{background:#fee2e2;color:#dc2626}
+.adm-status.open{background:#d1fae5;color:#065f46}
+.adm-action{padding:3px 9px;border-radius:5px;border:1px solid var(--border);background:#f8f8f8;font-size:11px;cursor:pointer;white-space:nowrap}
+.adm-action:hover{background:var(--acc);color:#fff;border-color:var(--acc)}
+.adm-action.blue{background:#eff6ff;color:#1d4ed8;border-color:#93c5fd}
+.adm-action.blue:hover{background:#1d4ed8;color:#fff}
+.adm-sep{height:1px;background:var(--border);margin:14px 0}
+.adm-sect{font-size:11px;font-weight:700;color:var(--t3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.adm-pw-row{display:flex;gap:6px;align-items:center}
+.adm-pw-inp{flex:1;padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:var(--font);outline:none}
+.adm-pw-inp:focus{border-color:var(--acc)}
+/* Admin 버튼 (상단 nav) */
+.admin-nav-btn{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:#f8f8f8;font-size:11px;cursor:pointer;color:var(--text);font-family:var(--font);font-weight:600;transition:.15s}
+.admin-nav-btn:hover{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 
 </style>
 <style>
@@ -466,6 +483,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
     <button class="nbtn" onclick="exportCSV()">⬇ CSV</button>
     <button class="nbtn acc" onclick="openNewPhaseModal()">＋ Phase</button>
     <button class="nbtn" onclick="openNewTaskModal()">＋ 작업</button>
+    <button class="admin-nav-btn" onclick="openAdminPanel()" id="adminNavBtn">🔐 Admin</button>
     <button class="nbtn pri" onclick="saveAll()">💾 저장</button>
   </div>
 </div>
@@ -1024,251 +1042,224 @@ document.addEventListener('click', function(e){
 });
 
 
-// ════════════════════════════════════════════════════
-// 🔐 아이템 잠금 / 비밀번호 시스템
-// ════════════════════════════════════════════════════
-const ADMIN_EMAIL   = 'exschool@gmail.com';   // Admin Gmail
-const ADMIN_PW_KEY  = 'fc_admin_pw_v6';
-const ITEM_PW_KEY   = 'fc_item_pws_v6';       // {rowId: hashedPw}
-const ITEM_LOCK_KEY = 'fc_item_locks_v6';     // {rowId: true/false}
-const UNLOCKED_KEY  = 'fc_unlocked_v6';       // Set — 이 세션에서 잠금 해제된 ID
 
-// SHA-256 해시 (비밀번호 저장용)
-async function sha256(str){
+
+// ═══════════════════════════════════════════════════════
+// 🔐 잠금 시스템 — 아이템별 비밀번호 잠금/숨김
+// ═══════════════════════════════════════════════════════
+const LK_PW_KEY    = 'fc_lk_pws_v6';     // {id: sha256hash}
+const LK_LOCK_KEY  = 'fc_lk_lock_v6';    // {id: true}
+const LK_SES_KEY   = 'fc_lk_ses_v6';     // 세션 내 해제 id 목록
+const LK_ADMIN_KEY = 'fc_lk_admin_v6';   // admin 비밀번호 hash
+
+function lkGetPws()   { try{ return JSON.parse(localStorage.getItem(LK_PW_KEY)||'{}'); }catch(e){ return {}; } }
+function lkGetLocks() { try{ return JSON.parse(localStorage.getItem(LK_LOCK_KEY)||'{}'); }catch(e){ return {}; } }
+function lkGetSes()   { try{ return new Set(JSON.parse(sessionStorage.getItem(LK_SES_KEY)||'[]')); }catch(e){ return new Set(); } }
+function lkSaveSes(s) { sessionStorage.setItem(LK_SES_KEY, JSON.stringify([...s])); }
+function lkGetAdminPw(){ return localStorage.getItem(LK_ADMIN_KEY)||''; }
+
+// 행이 잠겨있는가 (비번 설정 + 잠금 ON + 세션 해제 안 됨)
+function isRowLocked(id){
+  const locks = lkGetLocks();
+  if(!locks[id]) return false;          // 잠금 OFF
+  const ses = lkGetSes();
+  return !ses.has(id);                  // 세션 해제 여부
+}
+
+// ── SHA-256 해시 ──
+async function lkHash(str){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
-function getItemPws(){  try{ return JSON.parse(localStorage.getItem(ITEM_PW_KEY)||'{}'); } catch(e){ return {}; } }
-function getItemLocks(){ try{ return JSON.parse(localStorage.getItem(ITEM_LOCK_KEY)||'{}'); } catch(e){ return {}; } }
-function getUnlocked(){ try{ return new Set(JSON.parse(sessionStorage.getItem(UNLOCKED_KEY)||'[]')); } catch(e){ return new Set(); } }
-function saveUnlocked(s){ sessionStorage.setItem(UNLOCKED_KEY, JSON.stringify([...s])); }
-function getAdminPw(){ return localStorage.getItem(ADMIN_PW_KEY) || null; }
+// ── 모달 공통 ──
+let _lkMode = null;  // 'set'|'unlock'|'change'
+let _lkId   = null;
 
-function isLocked(id){
-  const locks = getItemLocks();
-  return locks[id] === true;
+function lkToggleEye(inputId, btn){
+  const el = document.getElementById(inputId);
+  el.type = el.type==='password'?'text':'password';
+  btn.textContent = el.type==='password'?'👁':'🙈';
 }
-function isUnlocked(id){
-  return getUnlocked().has(id);
+function closeLkModal(){
+  document.getElementById('lkBg').classList.remove('show');
+  _lkMode=null; _lkId=null;
 }
-function canView(id){
-  if(!isLocked(id)) return true;
-  return isUnlocked(id);
+function lkShowErr(msg){
+  const el=document.getElementById('lkErr');
+  el.textContent=msg;
+  setTimeout(()=>{ if(el.textContent===msg) el.textContent=''; },3000);
 }
+function lkOpenModal(mode, id){
+  _lkMode=mode; _lkId=id;
+  const r=rows.find(x=>x.id===id);
+  const name=r?r.name.slice(0,28)+'…':'';
+  document.getElementById('lkInp1').value='';
+  document.getElementById('lkInp2').value='';
+  document.getElementById('lkErr').textContent='';
+  const title=document.getElementById('lkTitle');
+  const sub=document.getElementById('lkSub');
+  const okBtn=document.getElementById('lkOkBtn');
+  const wrap2=document.getElementById('lkInp2Wrap');
+  const hint=document.getElementById('lkHint');
 
-// 현재 로그인 이메일 가져오기
-function currentEmail(){ return gUser ? gUser.email : null; }
-function isAdmin(){ return currentEmail() === ADMIN_EMAIL; }
-
-// ── 잠금 토글 버튼 (자물쇠 아이콘) ──
-async function toggleLock(e, id){
-  e.stopPropagation();
-  const locks = getItemLocks();
-  const pws   = getItemPws();
-
-  if(locks[id]){
-    // 이미 잠긴 상태 → 비밀번호 입력 후 해제 또는 Admin 강제해제
-    openPwModal('unlock', id);
-  } else {
-    // 잠금 설정
-    if(pws[id]){
-      // 이미 비번 설정됨 → 바로 잠금
-      locks[id] = true;
-      localStorage.setItem(ITEM_LOCK_KEY, JSON.stringify(locks));
-      const un = getUnlocked(); un.delete(id); saveUnlocked(un);
-      renderTable(); renderKanban(); toast('🔒 잠금 설정됨');
-    } else {
-      // 비번 없음 → 새 비번 설정 모달
-      openPwModal('set', id);
-    }
+  if(mode==='set'){
+    title.textContent='🔒 잠금 비밀번호 설정';
+    sub.textContent=`"${name}" 항목을 비밀번호로 잠급니다.\n비밀번호를 잊으면 Admin 패널에서 초기화할 수 있습니다.`;
+    okBtn.textContent='설정 & 잠금';
+    wrap2.style.display='block';
+    hint.innerHTML='분실 시 → 상단 <b>🔐 Admin</b> 버튼에서 초기화 가능';
+  } else if(mode==='unlock'){
+    title.textContent='🔑 잠금 해제';
+    sub.textContent=`잠긴 항목의 비밀번호를 입력하세요.`;
+    okBtn.textContent='열기';
+    wrap2.style.display='none';
+    hint.innerHTML='비밀번호를 잊으셨나요? → 상단 <b>🔐 Admin</b> 버튼에서 초기화';
+  } else if(mode==='change'){
+    title.textContent='🔄 비밀번호 변경';
+    sub.textContent=`"${name}" 새 비밀번호를 설정하세요.`;
+    okBtn.textContent='변경';
+    wrap2.style.display='block';
+    hint.innerHTML='';
   }
+  document.getElementById('lkBg').classList.add('show');
+  setTimeout(()=>document.getElementById('lkInp1').focus(),80);
 }
 
-// ── 비밀번호 모달 ──
-let _pwMode = null;   // 'set' | 'unlock' | 'change' | 'admin'
-let _pwId   = null;
-
-function openPwModal(mode, id){
-  _pwMode = mode; _pwId = id;
-  const bg    = document.getElementById('pwModalBg');
-  const title = document.getElementById('pwModalTitle');
-  const sub   = document.getElementById('pwModalSub');
-  const conf  = document.getElementById('pwConfirmBtn');
-  const hint  = document.getElementById('pwHint');
-  const wrap2 = document.getElementById('pwInput2Wrap');
-  const err   = document.getElementById('pwError');
-  document.getElementById('pwInput').value  = '';
-  document.getElementById('pwInput2').value = '';
-  err.classList.remove('show'); err.textContent = '';
-
-  const r = rows.find(x => x.id === id);
-  const name = r ? r.name : '';
-
-  if(mode === 'set'){
-    title.textContent   = '🔒 잠금 비밀번호 설정';
-    sub.textContent     = `"${name.slice(0,30)}"에 비밀번호를 설정합니다.`;
-    conf.textContent    = '설정 & 잠금';
-    wrap2.style.display = 'block';
-    hint.innerHTML      = '비밀번호를 잊으면 Admin(exschool@gmail.com)에게<br>또는 Gmail 인증으로 초기화할 수 있습니다.';
-  } else if(mode === 'unlock'){
-    title.textContent   = '🔑 잠금 해제';
-    sub.textContent     = `"${name.slice(0,30)}" 항목의 비밀번호를 입력하세요.`;
-    conf.textContent    = '잠금 해제';
-    wrap2.style.display = 'none';
-    hint.innerHTML      = `비밀번호를 잊으셨나요? <span class="pw-forgot" onclick="requestEmailReset(${id})">Gmail로 초기화</span>`;
-  } else if(mode === 'change'){
-    title.textContent   = '🔄 비밀번호 변경';
-    sub.textContent     = `"${name.slice(0,30)}" 항목의 새 비밀번호를 입력하세요.`;
-    conf.textContent    = '변경';
-    wrap2.style.display = 'block';
-    hint.innerHTML      = '';
-  }
-  bg.classList.add('show');
-  setTimeout(() => document.getElementById('pwInput').focus(), 80);
-}
-
-function closePwModal(){
-  document.getElementById('pwModalBg').classList.remove('show');
-  _pwMode = null; _pwId = null;
-}
-function togglePwEye(){
-  const inp = document.getElementById('pwInput');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-}
-function showPwError(msg){
-  const el = document.getElementById('pwError');
-  el.textContent = msg; el.classList.add('show');
-  document.getElementById('pwInput').style.borderColor = '#dc2626';
-  setTimeout(()=>{ el.classList.remove('show'); document.getElementById('pwInput').style.borderColor=''; }, 3000);
-}
-
-async function confirmPw(){
-  const val  = document.getElementById('pwInput').value;
-  const val2 = document.getElementById('pwInput2').value;
-  if(!val){ showPwError('비밀번호를 입력하세요'); return; }
-
-  const locks = getItemLocks();
-  const pws   = getItemPws();
-
-  if(_pwMode === 'set' || _pwMode === 'change'){
-    if(val.length < 4){ showPwError('최소 4자리 이상 입력하세요'); return; }
-    if(val !== val2){ showPwError('비밀번호가 일치하지 않습니다'); return; }
-    const h = await sha256(val);
-    pws[_pwId] = h;
-    locks[_pwId] = true;
-    localStorage.setItem(ITEM_PW_KEY, JSON.stringify(pws));
-    localStorage.setItem(ITEM_LOCK_KEY, JSON.stringify(locks));
-    const un = getUnlocked(); un.delete(_pwId); saveUnlocked(un);
-    closePwModal();
+// 잠금 설정 (테이블 행의 🔓 버튼 클릭)
+function lkSetRow(id){
+  const pws=lkGetPws();
+  if(pws[id]){
+    // 이미 비번 있음 → 바로 잠금 적용
+    const locks=lkGetLocks(); locks[id]=true;
+    localStorage.setItem(LK_LOCK_KEY,JSON.stringify(locks));
+    const ses=lkGetSes(); ses.delete(id); lkSaveSes(ses);
     renderTable(); renderKanban();
-    toast(_pwMode === 'set' ? '🔒 비밀번호 설정 & 잠금 완료' : '🔑 비밀번호 변경 완료');
+    toast('🔒 잠금 적용됨');
+  } else {
+    // 비번 없음 → 새로 설정
+    lkOpenModal('set', id);
+  }
+}
 
-  } else if(_pwMode === 'unlock'){
-    const h = await sha256(val);
-    // Admin 비밀번호로도 해제 가능
-    const adminPw = getAdminPw();
-    const isAdminPw = adminPw && h === adminPw;
-    if(pws[_pwId] === h || isAdminPw){
-      const un = getUnlocked(); un.add(_pwId); saveUnlocked(un);
-      closePwModal();
+// 잠긴 행 클릭 → 잠금 해제
+function lkUnlockRow(id){
+  lkOpenModal('unlock', id);
+}
+
+// openDet 훅: 잠긴 항목은 비번 요청
+const _origOpenDet = openDet;
+openDet = function(id){
+  if(isRowLocked(id)){ lkOpenModal('unlock',id); return; }
+  _origOpenDet(id);
+};
+
+async function lkConfirm(){
+  const v1=document.getElementById('lkInp1').value;
+  const v2=document.getElementById('lkInp2').value;
+  if(!v1){ lkShowErr('비밀번호를 입력하세요'); return; }
+
+  const pws=lkGetPws(); const locks=lkGetLocks();
+
+  if(_lkMode==='set'||_lkMode==='change'){
+    if(v1.length<4){ lkShowErr('4자리 이상 입력하세요'); return; }
+    if(v1!==v2){ lkShowErr('비밀번호가 일치하지 않습니다'); return; }
+    const h=await lkHash(v1);
+    pws[_lkId]=h; locks[_lkId]=true;
+    localStorage.setItem(LK_PW_KEY,JSON.stringify(pws));
+    localStorage.setItem(LK_LOCK_KEY,JSON.stringify(locks));
+    const ses=lkGetSes(); ses.delete(_lkId); lkSaveSes(ses);
+    closeLkModal();
+    renderTable(); renderKanban();
+    toast(_lkMode==='set'?'🔒 잠금 완료':'🔑 비밀번호 변경됨');
+
+  } else if(_lkMode==='unlock'){
+    const h=await lkHash(v1);
+    const adminPw=lkGetAdminPw();
+    if(pws[_lkId]===h || (adminPw && h===adminPw)){
+      const ses=lkGetSes(); ses.add(_lkId); lkSaveSes(ses);
+      closeLkModal();
       renderTable(); renderKanban();
       toast('🔓 잠금 해제됨');
     } else {
-      showPwError('비밀번호가 틀렸습니다');
+      lkShowErr('❌ 비밀번호가 틀렸습니다');
+      document.getElementById('lkInp1').value='';
+      document.getElementById('lkInp1').focus();
     }
   }
 }
 
-// ── Gmail 초기화 요청 ──
-function requestEmailReset(id){
-  if(!gUser){ toast('먼저 Google 로그인이 필요합니다'); return; }
-  closePwModal();
-  // Gmail로 인증된 사용자면 비밀번호 즉시 초기화 (owner 이메일 매칭 또는 Admin)
-  const r = rows.find(x => x.id === id);
-  const userEmail = currentEmail();
-  if(!userEmail){ toast('로그인 필요'); return; }
-  if(isAdmin() || (r && r.ownerEmail && r.ownerEmail === userEmail)){
-    resetItemPw(id);
-    toast(`✅ ${userEmail} 인증 — 비밀번호 초기화됨`);
-  } else {
-    toast('⚠️ 이 항목의 소유자 계정이 아닙니다. Admin에게 문의하세요.');
-  }
-}
-
-function resetItemPw(id){
-  const pws   = getItemPws();
-  const locks = getItemLocks();
-  delete pws[id]; delete locks[id];
-  localStorage.setItem(ITEM_PW_KEY, JSON.stringify(pws));
-  localStorage.setItem(ITEM_LOCK_KEY, JSON.stringify(locks));
-  const un = getUnlocked(); un.add(id); saveUnlocked(un);
-  renderTable(); renderKanban(); renderAdminContent();
-}
-
 // ── Admin 패널 ──
+let _admAuthed = false;
+
 async function openAdminPanel(){
-  const adminPw = getAdminPw();
-  if(!adminPw){
-    // 최초: Admin 비밀번호 없으면 설정
-    const np = prompt('Admin 비밀번호를 처음 설정하세요 (4자리 이상):');
-    if(!np || np.length < 4){ toast('설정 취소'); return; }
-    const h = await sha256(np);
-    localStorage.setItem(ADMIN_PW_KEY, h);
+  const storedPw=lkGetAdminPw();
+  if(!storedPw){
+    // 최초: Admin 비번 설정
+    const np=prompt('🔐 Admin 비밀번호를 처음 설정하세요 (4자리 이상):');
+    if(!np||np.length<4){ toast('설정 취소'); return; }
+    const h=await lkHash(np);
+    localStorage.setItem(LK_ADMIN_KEY,h);
+    _admAuthed=true;
     toast('✅ Admin 비밀번호 설정 완료');
-  } else {
-    // Admin 비밀번호 확인
-    const input = prompt('Admin 비밀번호를 입력하세요:');
-    if(!input){ return; }
-    const h = await sha256(input);
-    if(h !== adminPw){ alert('Admin 비밀번호가 틀렸습니다'); return; }
+  } else if(!_admAuthed){
+    const input=prompt('🔐 Admin 비밀번호 입력:');
+    if(input===null) return;
+    const h=await lkHash(input);
+    if(h!==storedPw){ alert('❌ Admin 비밀번호가 틀렸습니다'); return; }
+    _admAuthed=true;
   }
-  document.getElementById('adminPanelBg').classList.add('show');
-  renderAdminContent();
+  document.getElementById('admBg').classList.add('show');
+  renderAdmContent();
 }
-
 function closeAdminPanel(){
-  document.getElementById('adminPanelBg').classList.remove('show');
+  document.getElementById('admBg').classList.remove('show');
+  _admAuthed=false;
 }
-
-function renderAdminContent(){
-  const locks = getItemLocks();
-  const pws   = getItemPws();
-  const lockedItems = rows.filter(r => r.type !== 'phase' && (locks[r.id] || pws[r.id]));
-  if(!lockedItems.length){
-    document.getElementById('adminPanelContent').innerHTML =
-      '<div style="color:var(--t3);font-size:13px;text-align:center;padding:20px 0">잠긴 항목이 없습니다</div>';
+function renderAdmContent(){
+  const locks=lkGetLocks(); const pws=lkGetPws(); const ses=lkGetSes();
+  const items=rows.filter(r=>r.type!=='phase'&&(locks[r.id]||pws[r.id]));
+  if(!items.length){
+    document.getElementById('admContent').innerHTML=
+      '<div style="text-align:center;color:var(--t3);padding:18px;font-size:13px">🔓 잠긴 항목 없음</div>';
     return;
   }
-  document.getElementById('adminPanelContent').innerHTML = lockedItems.map(r => `
-    <div class="ap-item">
-      <div class="ap-name" title="${r.name}">${r.name.slice(0,32)}${r.name.length>32?'…':''}</div>
-      <span class="ap-badge ${locks[r.id] ? '' : 'unlocked'}">${locks[r.id] ? '🔒 잠김' : '🔓 해제'}</span>
-      <button class="ap-reset-btn" onclick="adminResetItem(${r.id})">초기화</button>
-      <button class="ap-reset-btn" onclick="adminChangePwItem(${r.id})" style="background:#eff6ff;color:#1d4ed8;border-color:#93c5fd">변경</button>
-    </div>`).join('');
+  document.getElementById('admContent').innerHTML=items.map(r=>{
+    const locked=locks[r.id]&&!ses.has(r.id);
+    return `<div class="adm-row">
+      <div class="adm-name" title="${r.name}">#${r.id} ${r.name.slice(0,30)}${r.name.length>30?'…':''}</div>
+      <span class="adm-status ${locked?'locked':'open'}">${locked?'🔒 잠김':'🔓 해제'}</span>
+      <button class="adm-action blue" onclick="admChangePw(${r.id})">비번변경</button>
+      <button class="adm-action" onclick="admReset(${r.id})">초기화</button>
+    </div>`;
+  }).join('');
 }
-
-function adminResetItem(id){
-  if(!confirm('이 항목의 비밀번호를 초기화하고 잠금을 해제하겠습니까?')) return;
-  resetItemPw(id);
+function admReset(id){
+  if(!confirm('비밀번호를 초기화하고 잠금을 해제하겠습니까?')) return;
+  const pws=lkGetPws(); const locks=lkGetLocks();
+  delete pws[id]; delete locks[id];
+  localStorage.setItem(LK_PW_KEY,JSON.stringify(pws));
+  localStorage.setItem(LK_LOCK_KEY,JSON.stringify(locks));
+  const ses=lkGetSes(); ses.add(id); lkSaveSes(ses);
+  renderTable(); renderKanban(); renderAdmContent();
   toast('✅ 초기화 완료');
 }
-async function adminChangePwItem(id){
-  const np = prompt('새 비밀번호를 입력하세요:');
-  if(!np || np.length < 4){ toast('4자리 이상 필요'); return; }
-  const h = await sha256(np);
-  const pws = getItemPws(); pws[id] = h;
-  localStorage.setItem(ITEM_PW_KEY, JSON.stringify(pws));
-  const un = getUnlocked(); un.add(id); saveUnlocked(un);
-  toast('🔑 비밀번호 변경 완료'); renderAdminContent();
+async function admChangePw(id){
+  const np=prompt(`#${id} 항목의 새 비밀번호 입력:`);
+  if(!np||np.length<4){ toast('4자리 이상 필요'); return; }
+  const h=await lkHash(np);
+  const pws=lkGetPws(); pws[id]=h;
+  localStorage.setItem(LK_PW_KEY,JSON.stringify(pws));
+  const ses=lkGetSes(); ses.add(id); lkSaveSes(ses);
+  renderAdmContent(); renderTable(); renderKanban();
+  toast('🔑 비밀번호 변경 완료');
 }
 async function changeAdminPw(){
-  const np = document.getElementById('adminNewPw').value;
-  if(!np || np.length < 4){ toast('4자리 이상 입력하세요'); return; }
-  const h = await sha256(np);
-  localStorage.setItem(ADMIN_PW_KEY, h);
-  document.getElementById('adminNewPw').value = '';
+  const np=document.getElementById('admNewPw').value;
+  if(!np||np.length<4){ toast('4자리 이상 입력하세요'); return; }
+  const h=await lkHash(np);
+  localStorage.setItem(LK_ADMIN_KEY,h);
+  document.getElementById('admNewPw').value='';
   toast('✅ Admin 비밀번호 변경 완료');
 }
 
@@ -1615,8 +1606,7 @@ function deletePhase(){ if(!editingPhaseId)return;const cnt=rows.filter(r=>r.ph=
 function confirmDelPhase(id){ const ph=phases.find(p=>p.id===id);if(!ph)return;const cnt=rows.filter(r=>r.ph===id).length;if(!confirm(`"${ph.name}" 삭제? ${cnt>0?`(작업 ${cnt}개 포함)`:''}`))return;rows=rows.filter(r=>r.ph!==id);phases=phases.filter(p=>p.id!==id);renderTable();renderKanban();renderSummary();scheduleSave();toast('Phase 삭제됨'); }
 
 // detail panel
-function openDet(id){
-  if(isLocked(id) && !isUnlocked(id)){ openPwModal('unlock', id); return; } curId=id;const r=rows.find(r=>r.id===id);if(!r)return;curFiles=[...(r.files||[])];const ph=phases.find(p=>p.id===r.ph);document.getElementById('detPhLbl').textContent=(ph?ph.name:r.ph)+' · '+r.proj;document.getElementById('detTitle').value=r.name;document.getElementById('detSummary').value=r.summary||'';document.getElementById('detNotes').value=r.notes||'';renderDetProps(r);renderAttList();document.getElementById('detOv').classList.add('show'); }
+function openDet(id){ curId=id;const r=rows.find(r=>r.id===id);if(!r)return;curFiles=[...(r.files||[])];const ph=phases.find(p=>p.id===r.ph);document.getElementById('detPhLbl').textContent=(ph?ph.name:r.ph)+' · '+r.proj;document.getElementById('detTitle').value=r.name;document.getElementById('detSummary').value=r.summary||'';document.getElementById('detNotes').value=r.notes||'';renderDetProps(r);renderAttList();document.getElementById('detOv').classList.add('show'); }
 function renderDetProps(r){ const s=STATUSES.find(x=>x.k===r.status)||STATUSES[0],pj=PROJS.find(x=>x.k===r.proj)||PROJS[5],n=pn(r.pri),p=ps(r.pri); document.getElementById('detProps').innerHTML=`<div class="det-prop"><div class="dpk">◉ 상태</div><div class="dpv"><span class="sbadge ${s.c}">${s.i} ${r.status}</span></div></div><div class="det-prop"><div class="dpk">⚑ 우선순위</div><div class="dpv"><div style="display:flex;gap:3px;flex-wrap:wrap">${[1,2,3,4,5,6,7,8,9].map(i=>{const p2=PS[i];return`<button class="pribadge" style="background:${p2.bg};color:${p2.cl};border:1.5px solid ${i===n?p2.cl:p2.bd};opacity:${i===n?1:.4};transform:${i===n?'scale(1.15)':'none'}" onclick="setDetPri(${r.id},${i})">${i}</button>`;}).join('')}</div></div></div><div class="det-prop"><div class="dpk">🏷 프로젝트</div><div class="dpv"><span class="ptag ${pj.c}">${r.proj}</span></div></div><div class="det-prop"><div class="dpk">📅 기한</div><div class="dpv"><input type="date" id="dd-due" value="${r.due||''}" style="border:1px solid var(--border);border-radius:5px;padding:2px 6px;font-size:12px;font-family:var(--font);outline:none"></div></div><div class="det-prop"><div class="dpk">█ 진행도</div><div class="dpv" style="display:flex;align-items:center;gap:7px"><input type="range" id="dd-pct" min="0" max="100" value="${r.pct}" style="flex:1" oninput="document.getElementById('dd-pctN').textContent=this.value+'%'"><span id="dd-pctN" style="font-size:11px;color:var(--t2);min-width:30px">${r.pct}%</span></div></div><div class="det-prop"><div class="dpk">👤 담당자</div><div class="dpv"><input id="dd-owner" value="${r.owner}" style="border:1px solid var(--border);border-radius:5px;padding:2px 6px;font-size:12px;font-family:var(--font);outline:none;width:70px"></div></div><div class="det-prop"><div class="dpk">🔀 Phase</div><div class="dpv"><select id="dd-phase" style="border:1px solid var(--border);border-radius:5px;padding:2px 6px;font-size:12px;font-family:var(--font);outline:none">${phases.map(ph=>`<option value="${ph.id}"${r.ph===ph.id?' selected':''}>${esc(ph.name)}</option>`).join('')}</select></div></div>`; }
 function setDetPri(id,n){ const r=rows.find(r=>r.id===id);if(r){r.pri=n;renderDetProps(r);} }
 function saveDet(){ const r=rows.find(r=>r.id===curId);if(!r)return;r.name=document.getElementById('detTitle').value||r.name;r.summary=document.getElementById('detSummary').value;r.notes=document.getElementById('detNotes').value;r.due=document.getElementById('dd-due')?.value||r.due;r.pct=parseInt(document.getElementById('dd-pct')?.value||r.pct);r.owner=document.getElementById('dd-owner')?.value||r.owner;r.ph=document.getElementById('dd-phase')?.value||r.ph;r.files=[...curFiles];renderTable();renderKanban();renderSummary();scheduleSave();toast('저장됨 ✓');closeDet(); }
@@ -1774,36 +1764,6 @@ function handleFirebaseSignOut() {
 </div>
 
 
-<!-- ══ 아이템 비밀번호 모달 ══ -->
-<div class="pw-modal-bg" id="pwModalBg" onclick="if(event.target===this)closePwModal()">
-  <div class="pw-modal">
-    <button class="pw-modal-x" onclick="closePwModal()">✕</button>
-    <h3 id="pwModalTitle">🔒 잠금 설정</h3>
-    <div class="pw-sub" id="pwModalSub">이 항목에 접근하려면 비밀번호가 필요합니다.</div>
-    <div class="pw-input-wrap">
-      <input class="pw-input" type="password" id="pwInput" placeholder="비밀번호 입력..."
-        onkeydown="if(event.key==='Enter')confirmPw()">
-      <span class="pw-eye" onclick="togglePwEye()">👁</span>
-    </div>
-    <div id="pwInput2Wrap" class="pw-input-wrap" style="display:none">
-      <input class="pw-input" type="password" id="pwInput2" placeholder="비밀번호 확인..."
-        onkeydown="if(event.key==='Enter')confirmPw()">
-    </div>
-    <div class="pw-error" id="pwError"></div>
-    <div class="pw-btn-row">
-      <button class="pw-btn secondary" onclick="closePwModal()">취소</button>
-      <button class="pw-btn primary" id="pwConfirmBtn" onclick="confirmPw()">확인</button>
-    </div>
-    <div class="pw-hint" id="pwHint"></div>
-  </div>
-</div>
-
-<!-- ══ 어드민 패널 ══ -->
-<div class="admin-panel-bg" id="adminPanelBg" onclick="if(event.target===this)closeAdminPanel()">
-  <div class="admin-panel">
-    <button class="pw-modal-x" onclick="closeAdminPanel()">✕</button>
-    <h3>🔐 Admin — 잠금 관리</h3>
-    <div class="ap-sub">잠긴 항목 비밀번호 초기화 및 강제 해제 (Admin 전용)</div>
     <div id="adminPanelContent">로딩 중...</div>
     <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
       <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:var(--t3)">Admin 비밀번호 변경</div>
@@ -1811,6 +1771,47 @@ function handleFirebaseSignOut() {
         <input type="password" id="adminNewPw" class="pw-input" style="margin:0;flex:1" placeholder="새 Admin 비밀번호">
         <button class="pw-btn primary" style="flex:0 0 60px" onclick="changeAdminPw()">변경</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ 🔐 비밀번호 입력 모달 ═══════════ -->
+<div class="lk-bg" id="lkBg" onclick="if(event.target===this)closeLkModal()">
+  <div class="lk-box">
+    <button style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--t3)" onclick="closeLkModal()">✕</button>
+    <h3 id="lkTitle">🔒 잠금 설정</h3>
+    <div class="lk-sub" id="lkSub"></div>
+    <div class="lk-inp-wrap">
+      <input class="lk-inp" type="password" id="lkInp1" placeholder="비밀번호..."
+             onkeydown="if(event.key==='Enter')lkConfirm()">
+      <button class="lk-eye" onclick="lkToggleEye('lkInp1',this)">👁</button>
+    </div>
+    <div class="lk-inp-wrap" id="lkInp2Wrap" style="display:none">
+      <input class="lk-inp" type="password" id="lkInp2" placeholder="비밀번호 확인..."
+             onkeydown="if(event.key==='Enter')lkConfirm()">
+    </div>
+    <div class="lk-err" id="lkErr"></div>
+    <div class="lk-btns">
+      <button class="lk-btn cancel" onclick="closeLkModal()">취소</button>
+      <button class="lk-btn ok" id="lkOkBtn" onclick="lkConfirm()">확인</button>
+    </div>
+    <div class="lk-hint" id="lkHint"></div>
+  </div>
+</div>
+
+<!-- ═══════════ 🔐 Admin 패널 ═══════════ -->
+<div class="adm-bg" id="admBg" onclick="if(event.target===this)closeAdminPanel()">
+  <div class="adm-box">
+    <button style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--t3)" onclick="closeAdminPanel()">✕</button>
+    <h3>🔐 Admin 잠금 관리</h3>
+    <div class="adm-sub">잠긴 항목 비밀번호 초기화 · 변경 · 강제 해제</div>
+    <div id="admContent">로딩 중...</div>
+    <div class="adm-sep"></div>
+    <div class="adm-sect">Admin 비밀번호 변경</div>
+    <div class="adm-pw-row">
+      <input type="password" class="adm-pw-inp" id="admNewPw" placeholder="새 Admin 비밀번호 (4자리 이상)">
+      <button class="lk-btn ok" style="flex:0 0 56px;padding:8px" onclick="changeAdminPw()">변경</button>
     </div>
   </div>
 </div>
