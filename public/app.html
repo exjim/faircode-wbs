@@ -45,6 +45,22 @@
 }
 /* 앱 컨텐츠 — 바로 표시 */
 #appContent { display: flex; flex-direction: column; height: 100vh; flex: 1; }
+
+/* ── 진척도 슬라이더 팝업 ── */
+.pct-popup{position:fixed;z-index:9999;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.15);padding:14px 16px;min-width:200px;display:none}
+.pct-popup.show{display:block}
+.pct-popup-title{font-size:11px;color:var(--t3);margin-bottom:8px;font-weight:600}
+.pct-slider{width:100%;height:6px;-webkit-appearance:none;appearance:none;border-radius:99px;background:var(--border);outline:none;cursor:pointer;margin:6px 0 10px}
+.pct-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--acc);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.pct-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--acc);cursor:pointer;border:none}
+.pct-val-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.pct-val-num{font-size:22px;font-weight:800;color:var(--acc);min-width:52px}
+.pct-btns{display:flex;gap:4px;flex-wrap:wrap}
+.pct-btn{padding:3px 7px;border-radius:5px;border:1px solid var(--border);background:#f8f8f8;font-size:11px;cursor:pointer;color:var(--text)}
+.pct-btn:hover{background:var(--acc);color:#fff;border-color:var(--acc)}
+.pct-done-btn{width:100%;padding:6px;border-radius:6px;border:none;background:var(--acc);color:#fff;font-size:12px;font-weight:700;cursor:pointer;margin-top:6px}
+.prog-cell{cursor:pointer;transition:opacity .15s}
+.prog-cell:hover{opacity:.75}
 </style>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -911,6 +927,58 @@ function setSyncState(state, label){
 }
 function fmtTime(d){ return d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}); }
 
+
+// ── 진척도 슬라이더 팝업 ──
+let _pctId = null;
+function openPctPopup(e, id){
+  e.stopPropagation();
+  _pctId = id;
+  const r = rows.find(x => x.id === id);
+  if(!r) return;
+  const popup = document.getElementById('pctPopup');
+  const slider = document.getElementById('pctSlider');
+  slider.value = r.pct;
+  document.getElementById('pctValNum').textContent = r.pct + '%';
+  // 슬라이더 배경 그라데이션
+  updateSliderBg(r.pct);
+  // 위치 계산
+  const rect = e.currentTarget.getBoundingClientRect();
+  let top = rect.bottom + 6;
+  let left = rect.left;
+  if(left + 220 > window.innerWidth) left = window.innerWidth - 228;
+  if(top + 160 > window.innerHeight) top = rect.top - 168;
+  popup.style.top = top + 'px';
+  popup.style.left = left + 'px';
+  popup.classList.add('show');
+}
+function onPctSlide(v){
+  document.getElementById('pctValNum').textContent = v + '%';
+  updateSliderBg(v);
+  if(_pctId !== null){
+    const r = rows.find(x => x.id === _pctId);
+    if(r){ r.pct = parseInt(v); scheduleSave(); renderTable(); renderKanban(); renderSummary(); }
+  }
+}
+function setPct(v){
+  document.getElementById('pctSlider').value = v;
+  onPctSlide(v);
+}
+function updateSliderBg(v){
+  const slider = document.getElementById('pctSlider');
+  slider.style.background = `linear-gradient(to right, var(--acc) ${v}%, var(--border) ${v}%)`;
+}
+function closePctPopup(){
+  document.getElementById('pctPopup').classList.remove('show');
+  _pctId = null;
+}
+// 팝업 외부 클릭 시 닫기
+document.addEventListener('click', function(e){
+  const popup = document.getElementById('pctPopup');
+  if(popup && popup.classList.contains('show') && !popup.contains(e.target)){
+    closePctPopup();
+  }
+});
+
 function scheduleSave(){
   saveLocal();
   setSyncState('saving');
@@ -1391,6 +1459,25 @@ function handleFirebaseSignOut() {
   }
 }
 </script>
+
+
+<!-- 진척도 슬라이더 팝업 -->
+<div class="pct-popup" id="pctPopup" onclick="event.stopPropagation()">
+  <div class="pct-popup-title">📊 진척도 조정</div>
+  <div class="pct-val-row">
+    <span class="pct-val-num" id="pctValNum">0%</span>
+    <div class="pct-btns">
+      <button class="pct-btn" onclick="setPct(0)">0</button>
+      <button class="pct-btn" onclick="setPct(25)">25</button>
+      <button class="pct-btn" onclick="setPct(50)">50</button>
+      <button class="pct-btn" onclick="setPct(75)">75</button>
+      <button class="pct-btn" onclick="setPct(100)">100</button>
+    </div>
+  </div>
+  <input type="range" class="pct-slider" id="pctSlider" min="0" max="100" step="5"
+    oninput="onPctSlide(this.value)">
+  <button class="pct-done-btn" onclick="closePctPopup()">확인 ✓</button>
+</div>
 
 </body>
 </html>
