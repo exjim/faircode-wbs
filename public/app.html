@@ -920,17 +920,19 @@ function scheduleSave(){
 
 function saveLocal(){
   try{
-    localStorage.setItem('fc_phases_v5', JSON.stringify(phases));
-    localStorage.setItem('fc_rows_v5', JSON.stringify(rows));
-    localStorage.setItem('fc_weeknotes_v5', JSON.stringify(weekNotes));
+    localStorage.setItem('fc_phases_v6', JSON.stringify(phases));
+    localStorage.setItem('fc_rows_v6', JSON.stringify(rows));
+    localStorage.setItem('fc_weeknotes_v6', JSON.stringify(weekNotes));
   } catch(e){}
 }
 function loadLocal(){
-  try{ const s=localStorage.getItem('fc_phases_v5'); if(s) phases=JSON.parse(s); } catch(e){}
-  try{ const s=localStorage.getItem('fc_rows_v5'); if(s){ rows=JSON.parse(s); rows.forEach(r=>{r.pri=pn(r.pri);if(!r.files)r.files=[]}); } } catch(e){}
+  // v5 이전 캐시 자동 제거 (2026-05 업데이트)
+  ['fc_phases_v5','fc_rows_v5','fc_weeknotes_v5','fc_phases_v4','fc_rows_v4'].forEach(k=>localStorage.removeItem(k));
+  try{ const s=localStorage.getItem('fc_phases_v6'); if(s) phases=JSON.parse(s); } catch(e){}
+  try{ const s=localStorage.getItem('fc_rows_v6'); if(s){ rows=JSON.parse(s); rows.forEach(r=>{r.pri=pn(r.pri);if(!r.files)r.files=[]}); } } catch(e){}
   // also try v4 migration
   if(!rows.length){ try{ const s=localStorage.getItem('fc_rows_v4'); if(s){ rows=JSON.parse(s); rows.forEach(r=>{r.pri=pn(r.pri);if(!r.files)r.files=[]}); } } catch(e){} }
-  try{ const s=localStorage.getItem('fc_weeknotes_v5')||localStorage.getItem('fc_weeknotes'); if(s) weekNotes=JSON.parse(s); } catch(e){}
+  try{ const s=localStorage.getItem('fc_weeknotes_v6')||localStorage.getItem('fc_weeknotes'); if(s) weekNotes=JSON.parse(s); } catch(e){}
 }
 
 function saveAll(){ scheduleSave(); toast('저장 시작...'); }
